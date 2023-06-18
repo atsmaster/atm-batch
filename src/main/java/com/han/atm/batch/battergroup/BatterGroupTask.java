@@ -1,4 +1,4 @@
-package com.han.atm.batch.batter;
+package com.han.atm.batch.battergroup;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepContribution;
