@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: atm_batch
+  batch:
+    job:
+      names: NONE
+  profiles:
+    include: sensitive
+    active: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
+    username: atuser
+    password: atuserpw
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
+    username: atuser
+    password: atuserpw
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
