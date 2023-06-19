@@ -21,7 +21,7 @@ public class BatterGroupJob {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-
+    private final BatterGroupTask batterGroupTask;
 
     @Bean
     public Job job() throws Exception {
@@ -36,7 +36,7 @@ public class BatterGroupJob {
     @JobScope
     public Step batterGroupStep() throws Exception {
         return stepBuilderFactory.get("batterGroupStep")
-                .tasklet(new BatterGroupTask())
+                .tasklet(batterGroupTask)
                 .build();
     }
 }
