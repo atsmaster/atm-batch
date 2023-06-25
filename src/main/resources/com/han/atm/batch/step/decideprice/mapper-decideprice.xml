@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="batch.step.decideprice">
+
+    <select id="findMaxFilledOrder" resultType="com.han.atm.batch.domain.entity.BatterOrder" >
+    -- findMaxFilledOrder
+    <![CDATA[
+        SELECT ORDER_ID
+             , EXCHANGE_ORDER_ID
+             , BATTER_EXECUTION_ID
+             , ORDER_SYMBOL
+             , ORDER_POSITION_CD
+             , ORDER_TYPE_CD
+             , ORDER_DT
+             , ORDER_DTTM
+             , ORDER_PRICE
+             , ORDER_QUANTITY
+             , ORDER_STATUS_CD
+             , TRANSACTION_DT
+             , TRANSACTION_DTTM
+             , TRANSACTION_PRICE
+             , TRANSACTION_QUANTITY
+             , TRANSACTION_TOTAL_AMOUNT
+             , COMMISSION
+        FROM TB_BATTER_ORDER
+        WHERE ORDER_ID = (
+            SELECT MAX(ORDER_ID)
+            FROM TB_BATTER_ORDER
+            WHERE BATTER_EXECUTION_ID = "1"
+              AND ORDER_STATUS_CD = "FILLED"
+        )
+    ]]>
+    </select>
+</mapper>
+
+

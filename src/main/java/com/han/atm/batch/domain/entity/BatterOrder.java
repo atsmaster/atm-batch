@@ -1,9 +1,13 @@
 package com.han.atm.batch.domain.entity;
 
+import com.han.atm.batch.domain.code.OrderStatusCd;
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@Getter
 @Entity
 @Table(name = "TB_BATTER_ORDER")
 public class BatterOrder {
@@ -38,9 +42,10 @@ public class BatterOrder {
     
     @Column(name = "ORDER_QUANTITY")
     private BigDecimal orderQuantity;
-    
+
+    @Enumerated
     @Column(name = "ORDER_STATUS_CD")
-    private String orderStatusCd;
+    private OrderStatusCd orderStatusCd;
     
     @Column(name = "TRANSACTION_DT")
     private String transactionDt;
