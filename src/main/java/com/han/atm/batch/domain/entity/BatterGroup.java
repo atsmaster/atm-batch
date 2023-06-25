@@ -1,4 +1,4 @@
-package com.han.atm.batch.batter.domain;
+package com.han.atm.batch.domain.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

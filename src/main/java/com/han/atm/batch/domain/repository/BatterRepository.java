@@ -1,6 +1,6 @@
-package com.han.atm.batch.batter.repository;
+package com.han.atm.batch.domain.repository;
 
-import com.han.atm.batch.batter.domain.Batter;
+import com.han.atm.batch.domain.entity.Batter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

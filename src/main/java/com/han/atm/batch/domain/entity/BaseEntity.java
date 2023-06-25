@@ -1,4 +1,4 @@
-package com.han.atm.batch.common.domain;
+package com.han.atm.batch.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

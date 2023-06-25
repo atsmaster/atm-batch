@@ -1,4 +1,4 @@
-package com.han.atm.batch.batter.domain;
+package com.han.atm.batch.domain.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,7 +10,10 @@ public class BatterOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ORDER_ID")
-    private String orderId;
+    private int orderId;
+
+    @Column(name = "EXCHANGE_ORDER_ID")
+    private String exchangeOrderId;
     
     @Column(name = "BATTER_EXECUTION_ID")
     private int batterExecutionId;

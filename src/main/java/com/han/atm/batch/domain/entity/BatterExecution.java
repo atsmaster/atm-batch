@@ -1,9 +1,15 @@
-package com.han.atm.batch.batter.domain;
+package com.han.atm.batch.domain.entity;
+
+import com.han.atm.batch.domain.code.BatterStatusCd;
+import com.han.atm.batch.domain.code.DecidePriceWaitCd;
+import com.han.atm.batch.domain.code.StopRequestCd;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@Getter
 @Entity
 @Table(name = "TB_BATTER_EXECUTION")
 public class BatterExecution {
@@ -17,9 +23,10 @@ public class BatterExecution {
     
     @Column(name = "BATTER_ID")
     private int batterId;
-    
+
+    @Enumerated
     @Column(name = "BATTER_STATUS_CD")
-    private String batterStatusCd;
+    private BatterStatusCd batterStatusCd;
     
     @Column(name = "BATTING_SYMBOL")
     private String battingSymbol;
@@ -41,9 +48,15 @@ public class BatterExecution {
     
     @Column(name = "LOSS_COUNT")
     private Integer lossCount;
-    
-    @Column(name = "PROFIT_CLOSE_REQUEST_YN")
-    private String profitCloseRequestYn;
+
+    @Enumerated
+    @Column(name = "STOP_REQUEST_CD")
+    private StopRequestCd stopRequestCd;
+
+    @Enumerated
+    @Column(name = "DECIDE_PRICE_WAIT_CD")
+    private DecidePriceWaitCd decidePriceWaitCd;
+
     
     @Column(name = "CREATED_DTTM")
     private Timestamp createdDttm;
@@ -56,7 +69,9 @@ public class BatterExecution {
     public BatterExecution(Batter batter, int batterGroupExecutionId){
         this.batterGroupExecutionId = batterGroupExecutionId;
         this.batterId = batter.getBatterId();
-        this.batterStatusCd = "START";
+        this.batterStatusCd = BatterStatusCd.START;
+        this.stopRequestCd = StopRequestCd.NONE;
+        this.decidePriceWaitCd = DecidePriceWaitCd.NONE;
     }
 
 }

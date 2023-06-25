@@ -2,13 +2,8 @@ package com.han.atm.batch.battergroup;
 
 import com.han.atm.batch.batter.BatterAsync;
 import com.han.atm.batch.batter.BatterService;
-import com.han.atm.batch.batter.domain.Batter;
-import com.han.atm.batch.batter.domain.BatterExecution;
-import com.han.atm.batch.batter.domain.BatterGroup;
-import com.han.atm.batch.batter.domain.BatterGroupExecution;
-import com.han.atm.batch.batter.repository.BatterGroupExecutionRepository;
-import com.han.atm.batch.batter.repository.BatterGroupRepository;
-import com.han.atm.batch.batter.repository.BatterRepository;
+import com.han.atm.batch.domain.entity.Batter;
+import com.han.atm.batch.domain.entity.BatterGroupExecution;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -18,12 +13,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.swing.plaf.ProgressBarUI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 @Component
 @StepScope
