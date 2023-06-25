@@ -7,6 +7,12 @@ spring:
   profiles:
     include: sensitive
     active: local
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
 
 ---
 
@@ -16,7 +22,7 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=true
     username: atuser
     password: atuserpw
 
