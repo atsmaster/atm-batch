@@ -1,10 +1,8 @@
 package com.han.atm.batch.step.stopcheck;
 
-import com.han.atm.batch.batter.BatterService;
 import com.han.atm.batch.domain.code.BatterStatusCd;
-import com.han.atm.batch.domain.code.StopRequestCd;
 import com.han.atm.batch.domain.entity.BatterExecution;
-import kotlin.contracts.ReturnsNotNull;
+import com.han.atm.batch.domain.service.BatterExecutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +10,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StepStopRequestCheck {
 
-    private final BatterService batterService;
+    private final BatterExecutionService batterExecutionService;
 
     public BatterStatusCd run(int batterExecutionId){
         BatterStatusCd nextBatterStatusCd = null;
 
-        BatterExecution batterExecution = batterService.findBatterExcution(batterExecutionId);
+        BatterExecution batterExecution = batterExecutionService.findById(batterExecutionId);
 
         switch (batterExecution.getStopRequestCd()){
             case PROFIT_STOP -> {

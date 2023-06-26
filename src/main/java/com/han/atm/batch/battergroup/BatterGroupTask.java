@@ -1,9 +1,10 @@
 package com.han.atm.batch.battergroup;
 
 import com.han.atm.batch.batter.BatterAsync;
-import com.han.atm.batch.batter.BatterService;
 import com.han.atm.batch.domain.entity.Batter;
 import com.han.atm.batch.domain.entity.BatterGroupExecution;
+import com.han.atm.batch.domain.service.BatterGroupExcutionService;
+import com.han.atm.batch.domain.service.BatterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BatterGroupTask implements Tasklet {
 
+    private final BatterGroupExcutionService batterGroupExcutionService;
     private final BatterService batterService;
 
     private final BatterAsync batterAsync;
@@ -31,7 +33,7 @@ public class BatterGroupTask implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 
         BatterGroupExecution batterGroupExecution = new BatterGroupExecution(batterGroupId);
-        batterService.createBatterGroupExcution(batterGroupExecution);
+        batterGroupExcutionService.createBatterGroupExcution(batterGroupExecution);
 
         List<Batter> batters = batterService.findByBatterGroupId(batterGroupExecution.getBatterGroupId());
 

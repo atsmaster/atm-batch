@@ -1,6 +1,7 @@
 package com.han.atm.batch.domain.entity;
 
 import com.han.atm.batch.domain.code.OrderStatusCd;
+import com.han.atm.batch.domain.code.OrderTypeCd;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -27,9 +28,10 @@ public class BatterOrder {
     
     @Column(name = "ORDER_POSITION_CD")
     private String orderPositionCd;
-    
+
+    @Enumerated
     @Column(name = "ORDER_TYPE_CD")
-    private String orderTypeCd;
+    private OrderTypeCd orderTypeCd;
     
     @Column(name = "ORDER_DT")
     private String orderDt;
