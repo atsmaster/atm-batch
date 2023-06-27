@@ -73,4 +73,5 @@ public class BatterOrder {
     @Column(name = "MODIFIED_DATE")
     private Timestamp modifiedDate;
 
+
 }

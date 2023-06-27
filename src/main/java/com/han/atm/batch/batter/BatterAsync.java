@@ -25,7 +25,6 @@ public class BatterAsync {
         BatterExecution batterExecution = new BatterExecution(batter, batterGroupExecutionId);
         batterExecutionService.createBatterExcution(batterExecution);
 
-        decidePriceStep.run(batterExecution);
 
 
 
