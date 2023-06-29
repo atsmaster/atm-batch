@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 
 @Service
 @RequiredArgsConstructor
-public class BinanceService {
+public class BinanceClient {
 
     private final UMFuturesClientImpl client;
 

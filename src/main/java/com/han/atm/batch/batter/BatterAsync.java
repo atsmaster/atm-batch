@@ -5,7 +5,6 @@ import com.han.atm.batch.domain.entity.Batter;
 import com.han.atm.batch.domain.entity.BatterExecution;
 import com.han.atm.batch.domain.service.BatterExecutionService;
 import com.han.atm.batch.step.decideprice.DecidePriceStep;
-import com.han.atm.batch.step.stopcheck.StepStopRequestCheck;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,12 +1,8 @@
 package com.han.atm.batch.step.decideprice;
 
-import com.binance.connector.futures.client.exceptions.BinanceClientException;
-import com.binance.connector.futures.client.exceptions.BinanceConnectorException;
-import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
-import com.han.atm.batch.binance.BinanceService;
+import com.han.atm.batch.binance.BinanceClient;
 import com.han.atm.batch.binance.vo.MarketBuyOrder;
 import com.han.atm.batch.domain.code.BatterStatusCd;
-import com.han.atm.batch.domain.code.OrderTypeCd;
 import com.han.atm.batch.domain.entity.Batter;
 import com.han.atm.batch.domain.entity.BatterExecution;
 import com.han.atm.batch.domain.entity.BatterOrder;
@@ -15,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -23,7 +18,7 @@ public class DecidePriceStep {
 
     private final BatterService batterService;
     private final DecidePriceDao decidePriceDao;
-    private final BinanceService binanceService;
+    private final BinanceClient binanceClient;
 
 
     public BatterStatusCd run(BatterExecution batterExecution, MarketBuyOrder batterOrder){
@@ -33,7 +28,7 @@ public class DecidePriceStep {
 
         Batter batter = batterService.findBatterById(batterExecution.getBatterId());
         BatterOrder maxFilledOrder = decidePriceDao.findMaxFilledOrder();
-        BigDecimal symbolMarketPrice = binanceService.getMarketPriceBySymobol(batterExecution.getBattingSymbol());
+        BigDecimal symbolMarketPrice = binanceClient.getMarketPriceBySymobol(batterExecution.getBattingSymbol());
         int quoteAssetPrecision = 7; // 해당 종목의 quote_asset_precision 컬럼 읽어오기
         if(maxFilledOrder == null){ // 첫 배팅
             BigDecimal firstBattingAmount = batter.getFirstBattingPrice();
