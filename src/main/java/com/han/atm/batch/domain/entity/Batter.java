@@ -4,20 +4,22 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 @Getter
 @Entity
 @Table(name = "TB_BATTER")
-public class Batter {
+public class Batter extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "BATTER_ID")
-    private int batterId;
-    
+    private Integer batterId;
+
     @Column(name = "BATTER_GROUP_ID")
-    private int batterGroupId;
-    
+    private Integer batterGroupId;
+
+    @Column(name = "SYMBOL_DECIDER_ ID")
+    private Integer symbolDeciderId;
+
     @Column(name = "BATTER_NAME")
     private String batterName;
 
@@ -35,11 +37,5 @@ public class Batter {
     
     @Column(name = "RETRY_INCREMENT_PRICE_RATE")
     private BigDecimal retryIncrementPriceRate;
-    
-    @Column(name = "CREATED_DTTM")
-    private Timestamp createdDttm;
-    
-    @Column(name = "MODIFIED_DTTM")
-    private Timestamp modifiedDttm;
 
 }

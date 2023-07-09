@@ -7,22 +7,21 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 @Getter
 @Entity
 @Table(name = "TB_BATTER_EXECUTION")
-public class BatterExecution {
+public class BatterExecution extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "BATTER_EXECUTION_ID")
-    private int batterExecutionId;
+    private Integer batterExecutionId;
     
     @Column(name = "BATTER_GROUP_EXECUTION_ID")
-    private int batterGroupExecutionId;
+    private Integer batterGroupExecutionId;
     
     @Column(name = "BATTER_ID")
-    private int batterId;
+    private Integer batterId;
 
     @Enumerated
     @Column(name = "BATTER_STATUS_CD")
@@ -57,12 +56,6 @@ public class BatterExecution {
     @Column(name = "DECIDE_PRICE_WAIT_CD")
     private DecidePriceWaitCd decidePriceWaitCd;
 
-    
-    @Column(name = "CREATED_DTTM")
-    private Timestamp createdDttm;
-    
-    @Column(name = "MODIFIED_DTTM")
-    private Timestamp modifiedDttm;
 
     public BatterExecution(){}
 

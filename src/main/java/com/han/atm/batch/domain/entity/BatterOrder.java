@@ -6,23 +6,24 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @Table(name = "TB_BATTER_ORDER")
-public class BatterOrder {
+public class BatterOrder extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ORDER_ID")
-    private int orderId;
+    private Integer orderId;
 
     @Column(name = "EXCHANGE_ORDER_ID")
     private String exchangeOrderId;
     
     @Column(name = "BATTER_EXECUTION_ID")
-    private int batterExecutionId;
-    
+    private Integer batterExecutionId;
+
     @Column(name = "ORDER_SYMBOL")
     private String orderSymbol;
     
@@ -34,10 +35,10 @@ public class BatterOrder {
     private OrderTypeCd orderTypeCd;
     
     @Column(name = "ORDER_DT")
-    private String orderDt;
+    private LocalDate orderDt;
     
     @Column(name = "ORDER_DTTM")
-    private Timestamp orderDttm;
+    private LocalDateTime orderDttm;
     
     @Column(name = "ORDER_PRICE")
     private BigDecimal orderPrice;
@@ -50,10 +51,10 @@ public class BatterOrder {
     private OrderStatusCd orderStatusCd;
     
     @Column(name = "TRANSACTION_DT")
-    private String transactionDt;
+    private LocalDate transactionDt;
     
     @Column(name = "TRANSACTION_DTTM")
-    private Timestamp transactionDttm;
+    private LocalDateTime transactionDttm;
     
     @Column(name = "TRANSACTION_PRICE")
     private BigDecimal transactionPrice;
@@ -66,12 +67,9 @@ public class BatterOrder {
     
     @Column(name = "COMMISSION")
     private BigDecimal commission;
-    
-    @Column(name = "CREATED_DATE")
-    private Timestamp createdDate;
-    
-    @Column(name = "MODIFIED_DATE")
-    private Timestamp modifiedDate;
 
+    public void setOrderQuantity(BigDecimal orderQuantity){
+        this.orderQuantity = orderQuantity;
+    }
 
 }

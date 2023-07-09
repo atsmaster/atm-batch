@@ -5,7 +5,7 @@
 
 <mapper namespace="batch.step.decideprice">
 
-    <select id="findMaxFilledOrder" resultType="com.han.atm.batch.domain.entity.BatterOrder" >
+    <select id="findPrevFilledOrder" resultType="com.han.atm.batch.domain.entity.BatterOrder" >
     -- findMaxFilledOrder
     <![CDATA[
         SELECT ORDER_ID
@@ -29,7 +29,7 @@
         WHERE ORDER_ID = (
             SELECT MAX(ORDER_ID)
             FROM TB_BATTER_ORDER
-            WHERE BATTER_EXECUTION_ID = "1"
+            WHERE BATTER_EXECUTION_ID = #{batterExecutionId}
               AND ORDER_STATUS_CD = "FILLED"
         )
     ]]>

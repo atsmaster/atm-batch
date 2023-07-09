@@ -21,7 +21,7 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:log4jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&
     username: atuser
     password: atuserpw
 
@@ -33,7 +33,7 @@ spring:
       on-profile: dev
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:log4jdbc:mysql://localhost:3310/atm_collection_mysql?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false
     username: atuser
     password: atuserpw
 

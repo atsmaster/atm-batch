@@ -2,6 +2,9 @@ package com.han.atm.batch.step.start;
 
 import com.han.atm.batch.domain.StepStorage;
 import com.han.atm.batch.domain.code.BatterStatusCd;
+import com.han.atm.batch.domain.entity.Batter;
+import com.han.atm.batch.domain.entity.BatterExecution;
+import com.han.atm.batch.domain.service.BatterExecutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +12,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StartStep {
 
-    public BatterStatusCd run(){
+    private final BatterExecutionService batterExecutionService;
+
+    public StepStorage run(Batter batter, int batterGroupExecutionId){
+        BatterExecution batterExecution = new BatterExecution(batter, batterGroupExecutionId);
+        batterExecutionService.createBatterExcution(batterExecution);
+
         StepStorage stepStorage = new StepStorage();
-
-
-
-        return null;
+        stepStorage.setBatter(batter);
+        stepStorage.setBatterExecution(batterExecution);
+        stepStorage.setBatterOrder(null);
+        stepStorage.setBatterStatusCd(BatterStatusCd.DECIDE_SYMBOL);
+        return stepStorage;
     }
 }
