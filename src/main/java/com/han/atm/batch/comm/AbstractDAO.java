@@ -15,12 +15,9 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class AbstractDAO {
-
     private static final Logger logger = LogManager.getLogger(AbstractDAO.class);
 
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
-
+    private final SqlSessionTemplate sqlSessionTemplate;
     private int limitSize = 1000;
 
     protected void printQueryId(String queryId) {
