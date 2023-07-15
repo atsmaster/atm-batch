@@ -26,6 +26,9 @@ public class BatterOrder extends BaseEntity {
 
     @Column(name = "ORDER_SYMBOL")
     private String orderSymbol;
+
+    @Column(name = "ORDER_SIDE")
+    private String orderSide;
     
     @Column(name = "ORDER_POSITION_CD")
     private String orderPositionCd;
@@ -70,6 +73,10 @@ public class BatterOrder extends BaseEntity {
 
     public void setOrderQuantity(BigDecimal orderQuantity){
         this.orderQuantity = orderQuantity;
+    }
+
+    public void setOrderSymbol(String symbol){
+        this.orderSymbol = symbol;
     }
 
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="batch.step.decidesymbol">
+
+    <select id="findSymbolTradingAndUsdt" resultType="string" >
+        -- findMaxFilledOrder
+        <![CDATA[
+        SELECT SYMBOL
+          FROM COIN_ENTRY
+         WHERE EXCHANGE = 'BINANCE'
+          AND STATUS = 'TRADING'
+          AND QUOTE_ASSET = 'USDT'
+        ]]>
+    </select>
+</mapper>
+
+

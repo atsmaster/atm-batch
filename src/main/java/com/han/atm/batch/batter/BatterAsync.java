@@ -5,6 +5,7 @@ import com.han.atm.batch.domain.StepStorage;
 import com.han.atm.batch.domain.entity.Batter;
 import com.han.atm.batch.step.price.DecidePriceStep;
 import com.han.atm.batch.step.start.StartStep;
+import com.han.atm.batch.step.symbol.DecideSymbolDao;
 import com.han.atm.batch.step.symbol.DecideSymbolStep;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -18,8 +19,8 @@ public class BatterAsync {
     private static final Logger logger = LoggerFactory.getLogger(BatterAsync.class);
 
     private final StartStep startStep;
-    private final DecideSymbolStep decideSymbolStep;
     private final DecidePriceStep decidePriceStep;
+    private final DecideSymbolStep decideSymbolStep;
 
     @Async("asyncExecutor")
     public void run(Batter batter, int batterGroupExecutionId) {
@@ -31,7 +32,7 @@ public class BatterAsync {
                 case STOPPING_REQUEST_CHECK -> {
 
                 }case DECIDE_SYMBOL -> {
-
+                    decideSymbolStep.run(stepStorage);
                 }case DECIDE_PRICE -> {
                     decidePriceStep.run(stepStorage);
                 }case BUYING -> {
@@ -41,7 +42,7 @@ public class BatterAsync {
                 }case SETTLING -> {
 
                 }case STOP -> {
-                    break;
+
                 }
             }
 

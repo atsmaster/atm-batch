@@ -17,7 +17,4 @@ public class StepStorage {
     private BatterOrder batterOrder;
     private BatterStatusCd batterStatusCd;
 
-    public void setOrderQuantity(BigDecimal orderQuantity){
-        batterOrder.setOrderQuantity(orderQuantity);
-    }
 }

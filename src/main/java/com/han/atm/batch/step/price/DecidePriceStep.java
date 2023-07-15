@@ -21,6 +21,7 @@ public class DecidePriceStep {
     public StepStorage run(StepStorage stepStorage){
         Batter batter = stepStorage.getBatter();
         BatterExecution batterExecution = stepStorage.getBatterExecution();
+        BatterOrder batterOrder = stepStorage.getBatterOrder();
 
         BatterOrder prevFilledOrder = decidePriceDao.findPrevFilledOrder(batterExecution.getBatterExecutionId());
         BigDecimal symbolMarketPrice = binanceClient.getMarketPriceBySymobol(batterExecution.getBattingSymbol());
@@ -30,7 +31,7 @@ public class DecidePriceStep {
             BigDecimal firstBattingAmount = batter.getFirstBattingPrice();
             BigDecimal baseQuantity =  firstBattingAmount.divide(symbolMarketPrice).setScale(quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
 
-            stepStorage.setOrderQuantity(baseQuantity);
+            batterOrder.setOrderQuantity(baseQuantity);
             stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
         }else{
             switch ( prevFilledOrder.getOrderTypeCd()){
@@ -39,14 +40,14 @@ public class DecidePriceStep {
                     BigDecimal newOrderAmount = transactionTotalAmount.multiply(batter.getRetryIncrementPriceRate());
                     BigDecimal baseQuantity = newOrderAmount.divide(symbolMarketPrice).setScale(quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
 
-                    stepStorage.setOrderQuantity(baseQuantity);
+                    batterOrder.setOrderQuantity(baseQuantity);
                     stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
                 }
                 case TAKE_PROFIT_MARKET -> {
                     BigDecimal firstBattingAmount = batter.getFirstBattingPrice();
                     BigDecimal baseQuantity =  firstBattingAmount.divide(symbolMarketPrice).setScale(quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
 
-                    stepStorage.setOrderQuantity(baseQuantity);
+                    batterOrder.setOrderQuantity(baseQuantity);
                     stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
                 }
                 default -> {
