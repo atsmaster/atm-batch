@@ -9,10 +9,10 @@
         -- findMaxFilledOrder
         <![CDATA[
         SELECT SYMBOL
-          FROM COIN_ENTRY
+          FROM TB_COIN_ENTRY
          WHERE EXCHANGE = 'BINANCE'
-          AND STATUS = 'TRADING'
-          AND QUOTE_ASSET = 'USDT'
+           AND SYMBOL_STATUS_CD = 'TRADING'
+           AND QUOTE_ASSET = 'USDT'
         ]]>
     </select>
 </mapper>

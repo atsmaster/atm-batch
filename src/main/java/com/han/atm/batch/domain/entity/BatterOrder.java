@@ -1,5 +1,7 @@
 package com.han.atm.batch.domain.entity;
 
+import com.han.atm.batch.domain.code.OrderPositionCd;
+import com.han.atm.batch.domain.code.OrderSideCd;
 import com.han.atm.batch.domain.code.OrderStatusCd;
 import com.han.atm.batch.domain.code.OrderTypeCd;
 import lombok.Getter;
@@ -27,13 +29,15 @@ public class BatterOrder extends BaseEntity {
     @Column(name = "ORDER_SYMBOL")
     private String orderSymbol;
 
-    @Column(name = "ORDER_SIDE")
-    private String orderSide;
-    
-    @Column(name = "ORDER_POSITION_CD")
-    private String orderPositionCd;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ORDER_SIDE_CD")
+    private OrderSideCd orderSideCd;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ORDER_POSITION_CD")
+    private OrderPositionCd orderPositionCd;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_TYPE_CD")
     private OrderTypeCd orderTypeCd;
     
@@ -49,7 +53,7 @@ public class BatterOrder extends BaseEntity {
     @Column(name = "ORDER_QUANTITY")
     private BigDecimal orderQuantity;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS_CD")
     private OrderStatusCd orderStatusCd;
     
@@ -77,6 +81,12 @@ public class BatterOrder extends BaseEntity {
 
     public void setOrderSymbol(String symbol){
         this.orderSymbol = symbol;
+    }
+
+    public void initialize(OrderSideCd orderSideCd, OrderPositionCd orderPositionCd, OrderTypeCd orderTypeCd){
+        this.orderSideCd = orderSideCd;
+        this.orderPositionCd = orderPositionCd;
+        this.orderTypeCd = orderTypeCd;
     }
 
 }

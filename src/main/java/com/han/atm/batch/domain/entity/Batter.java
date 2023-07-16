@@ -1,5 +1,7 @@
 package com.han.atm.batch.domain.entity;
 
+import com.han.atm.batch.domain.code.OrderPositionCd;
+import com.han.atm.batch.domain.code.OrderTypeMarketLimitCd;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -17,14 +19,23 @@ public class Batter extends BaseEntity {
     @Column(name = "BATTER_GROUP_ID")
     private Integer batterGroupId;
 
-    @Column(name = "SYMBOL_DECIDER_ ID")
+    @Column(name = "SYMBOL_DECIDER_ID")
     private Integer symbolDeciderId;
 
     @Column(name = "BATTER_NAME")
     private String batterName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_POSITION_CD")
-    private String orderPositionCd;
+    private OrderPositionCd orderPositionCd;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "BUY_ORDER_TYPE_MARKET_LIMIT_CD")
+    private OrderTypeMarketLimitCd buyOrderTypeMarketLimitCd;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SELL_ORDER_TYPE_MARKET_LIMIT_CD")
+    private OrderTypeMarketLimitCd sellOrderTypeMarketLimitCd;
     
     @Column(name = "FIRST_BATTING_PRICE")
     private BigDecimal firstBattingPrice;

@@ -6,6 +6,7 @@ import com.han.atm.batch.domain.code.BatterStatusCd;
 import com.han.atm.batch.domain.entity.Batter;
 import com.han.atm.batch.domain.entity.BatterExecution;
 import com.han.atm.batch.domain.entity.BatterOrder;
+import com.han.atm.batch.domain.repository.CoinEntryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ public class DecidePriceStep {
 
     private final DecidePriceDao decidePriceDao;
     private final BinanceClient binanceClient;
+    private final CoinEntryRepository coinEntryRepository;
 
     public StepStorage run(StepStorage stepStorage){
         Batter batter = stepStorage.getBatter();
@@ -26,29 +28,27 @@ public class DecidePriceStep {
         BatterOrder prevFilledOrder = decidePriceDao.findPrevFilledOrder(batterExecution.getBatterExecutionId());
         BigDecimal symbolMarketPrice = binanceClient.getMarketPriceBySymobol(batterExecution.getBattingSymbol());
 
-        int quoteAssetPrecision = 7; // 해당 종목의 quote_asset_precision 컬럼 읽어오기
+
+        int quoteAssetPrecision = coinEntryRepository.findByExchangeAndSymbol("binance", batterOrder.getOrderSymbol()).getQuoteAssetPrecision();
         if(prevFilledOrder == null){ // 첫 배팅
             BigDecimal firstBattingAmount = batter.getFirstBattingPrice();
-            BigDecimal baseQuantity =  firstBattingAmount.divide(symbolMarketPrice).setScale(quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
+            BigDecimal baseQuantity =  firstBattingAmount.divide(symbolMarketPrice, quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
 
             batterOrder.setOrderQuantity(baseQuantity);
-            stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
         }else{
             switch ( prevFilledOrder.getOrderTypeCd()){
                 case STOP_MARKET -> {
                     BigDecimal transactionTotalAmount = prevFilledOrder.getTransactionTotalAmount();
                     BigDecimal newOrderAmount = transactionTotalAmount.multiply(batter.getRetryIncrementPriceRate());
-                    BigDecimal baseQuantity = newOrderAmount.divide(symbolMarketPrice).setScale(quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
+                    BigDecimal baseQuantity = newOrderAmount.divide(symbolMarketPrice, quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
 
                     batterOrder.setOrderQuantity(baseQuantity);
-                    stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
                 }
                 case TAKE_PROFIT_MARKET -> {
                     BigDecimal firstBattingAmount = batter.getFirstBattingPrice();
-                    BigDecimal baseQuantity =  firstBattingAmount.divide(symbolMarketPrice).setScale(quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
+                    BigDecimal baseQuantity =  firstBattingAmount.divide(symbolMarketPrice, quoteAssetPrecision, BigDecimal.ROUND_HALF_UP);
 
                     batterOrder.setOrderQuantity(baseQuantity);
-                    stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
                 }
                 default -> {
                     new NoSuchMethodError("DecidePriceStep : No");
@@ -56,6 +56,7 @@ public class DecidePriceStep {
             }
         }
 
+        stepStorage.setBatterStatusCd(BatterStatusCd.BUYING);
         return stepStorage;
     }
 

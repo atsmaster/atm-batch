@@ -19,21 +19,22 @@ public class BinanceClient {
 
     public BigDecimal getMarketPriceBySymobol(String symbol){
         Gson gson = new Gson();
-        HashMap response = gson.fromJson(client.market().markPrice(new LinkedHashMap(){{put("symbol", symbol);}}), HashMap.class);
+        LinkedHashMap parameter = new LinkedHashMap<String ,Object>();
+        parameter.put("symbol", symbol);
+
+        HashMap response = gson.fromJson(client.market().markPrice(parameter), HashMap.class);
         String markPrice =  response.get("markPrice").toString();
         return new BigDecimal(markPrice);
     }
 
-    public BigDecimal newOrder(BatterOrder batterOrder){
+    public Map newOrder(BatterOrder batterOrder){
         Gson gson = new Gson();
-        LinkedHashMap parameter = (LinkedHashMap) Map.of(
-                "symbol", batterOrder.getOrderSymbol(),
-                "side", batterOrder.getOrderSide(),
-                "position", batterOrder.getOrderPositionCd(),
-                "t", "");
-
-        gson.fromJson(client.account().newOrder(parameter), HashMap.class);
-
-        return null;
+        LinkedHashMap parameter = new LinkedHashMap<String ,Object>();
+        parameter.put("symbol", batterOrder.getOrderSymbol());
+        parameter.put("side", batterOrder.getOrderSideCd().toString());
+        parameter.put("position", batterOrder.getOrderPositionCd().toString());
+        parameter.put("type", batterOrder.getOrderTypeCd().toString());
+        parameter.put("quantity", batterOrder.getOrderQuantity().toString());
+        return gson.fromJson(client.account().newOrder(parameter), HashMap.class);
     }
 }

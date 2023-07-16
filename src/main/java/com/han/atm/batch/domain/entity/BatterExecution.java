@@ -23,7 +23,7 @@ public class BatterExecution extends BaseEntity {
     @Column(name = "BATTER_ID")
     private Integer batterId;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "BATTER_STATUS_CD")
     private BatterStatusCd batterStatusCd;
     
@@ -48,11 +48,11 @@ public class BatterExecution extends BaseEntity {
     @Column(name = "LOSS_COUNT")
     private Integer lossCount;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "STOP_REQUEST_CD")
     private StopRequestCd stopRequestCd;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "DECIDE_PRICE_WAIT_CD")
     private DecidePriceWaitCd decidePriceWaitCd;
 
@@ -67,4 +67,7 @@ public class BatterExecution extends BaseEntity {
         this.decidePriceWaitCd = DecidePriceWaitCd.NONE;
     }
 
+    public void setBattingSymbol(String symbol){
+        this.battingSymbol = symbol;
+    }
 }
